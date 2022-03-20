@@ -53,3 +53,10 @@ div img {
   max-width: 200px;
   max-height: 200px;
 }
+
+table th {
+  border-spacing: 0;
+  border: 1px;
+  border-style: solid;
+  padding: 5px;
+}
