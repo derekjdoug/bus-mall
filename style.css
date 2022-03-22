@@ -44,8 +44,13 @@
   grid-row: 5 / 6;
 }
 
-h1{
+h1 {
   font-size: 80px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 40px;
   text-align: center;
 }
 
@@ -59,4 +64,23 @@ table th {
   border: 1px;
   border-style: solid;
   padding: 5px;
+}
+
+#item2 {
+  padding: 10px;
+  height: 40px;
+  border: 2px black solid;
+  width: fit-content;
+  background-color: aqua;
+  text-align: center;
+  margin-left: 25px;
+}
+
+ul {
+  margin: 20px;
+}
+
+li {
+  list-style: disc;
+  margin-left: 40px;
 }
