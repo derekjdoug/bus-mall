@@ -2,9 +2,13 @@
 
 const results = document.getElementById('results');
 const selection = document.getElementById('selection');
+const button = document.getElementById('addButton');
+const showResults = document.getElementById('item2');
+const clickResults = document.getElementById('print');
 // let imageOne = document.getElementById('imageOne');
 // let imageTwo = document.getElementById('imageTwo');
 // let imageThree = document.getElementById('imageThree');
+let rounds = 25;
 
 //Constructor Function
 function Product(name, filePath, views, clicks) {
@@ -38,18 +42,19 @@ let productsArr = [
   new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
 ];
 console.log(productsArr);
-Product.tableHeader = function () {
-  let i;
-  for(i = 0; i < productsArr.length; i++){
-    let row = document.createElement('tr');
-    row.id = productsArr[i].name;
-    results.appendChild(row);
-    let name = document.createElement('td');
-    name.textContent = productsArr[i].name;
-    row.appendChild(name);
-  }
-};
-Product.tableHeader();
+
+// Product.tableHeader = function () {
+//   let i;
+//   for(i = 0; i < productsArr.length; i++){
+//     let row = document.createElement('tr');
+//     row.id = productsArr[i].name;
+//     results.appendChild(row);
+//     let name = document.createElement('td');
+//     name.textContent = productsArr[i].name;
+//     row.appendChild(name);
+//   }
+// };
+// Product.tableHeader();
 
 //Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
@@ -99,27 +104,33 @@ Product.render = function () {
 
 Product.render();
 
-
+let count = 0;
 let userChoice1 = img1;
 
 userChoice1.addEventListener('click', function (event) {
   event.preventDefault();
 
-  let read = hold;
+  // let read = hold;
   hold[0].clicks++;
-  for(let i = 0; i < productsArr.length; i++) {
-    if(read[0].name === productsArr[i].name) {
-      let update = document.getElementById(`${productsArr[i].name}`);
-      let print = document.createElement('td');
-      if (update.hasChildNodes()) {
-        update.removeChild(update.firstChild);
-      }
-      print.textContent = read[0].views;
-      update.appendChild(print);
+  count++;
+  // for(let i = 0; i < productsArr.length; i++) {
+  //   if(read[0].name === productsArr[i].name) {
+  //     let update = document.getElementById(`${productsArr[i].name}`);
+  //     let print = document.createElement('td');
+  //     if (update.hasChildNodes()) {
+  //       update.removeChild(update.firstChild);
+  //     }
+  //     print.textContent = read[0].clicks;
+  //     update.appendChild(print);
+  //   }
+  // }
+  reset();
+  for(let i = 0; i < 1; i++){
+    if(count < rounds){
+      Product.render();
     }
   }
-  reset();
-  Product.render();
+  // Product.render();
   console.log(productsArr);
 });
 
@@ -128,18 +139,24 @@ let userChoice2 = img2;
 userChoice2.addEventListener('click', function (event) {
   event.preventDefault();
 
-  let read = hold;
+  // let read = hold;
   hold[1].clicks++;
-  for(let i = 0; i < productsArr.length; i++) {
-    if(read[1].name === productsArr[i].name) {
-      let update = document.getElementById(`${read[1].name}`);
-      let print = document.createElement('td');
-      print.textContent = read[1].views;
-      update.appendChild(print);
+  count++;
+  // for(let i = 0; i < productsArr.length; i++) {
+  //   if(read[1].name === productsArr[i].name) {
+  //     let update = document.getElementById(`${read[1].name}`);
+  //     let print = document.createElement('td');
+  //     print.textContent = read[1].clicks;
+  //     update.appendChild(print);
+  //   }
+  // }
+  reset();
+  for(let i = 0; i < 1; i++){
+    if(count < rounds){
+      Product.render();
     }
   }
-  reset();
-  Product.render();
+  // Product.render();
   console.log(productsArr);
 });
 
@@ -148,18 +165,24 @@ let userChoice3 = img3;
 userChoice3.addEventListener('click', function (event) {
   event.preventDefault();
 
-  let read = hold;
+  // let read = hold;
   hold[2].clicks++;
-  for(let i = 0; i < productsArr.length; i++) {
-    if(read[2].name === productsArr[i].name) {
-      let update = document.getElementById(`${read[2].name}`);
-      let print = document.createElement('td');
-      print.textContent = read[2].views;
-      update.appendChild(print);
+  count++;
+  // for(let i = 0; i < productsArr.length; i++) {
+  //   if(read[2].name === productsArr[i].name) {
+  //     let update = document.getElementById(`${read[2].name}`);
+  //     let print = document.createElement('td');
+  //     print.textContent = read[2].clicks;
+  //     update.appendChild(print);
+  //   }
+  // }
+  reset();
+  for(let i = 0; i < 1; i++){
+    if(count < rounds){
+      Product.render();
     }
   }
-  reset();
-  Product.render();
+  // Product.render();
   console.log(productsArr);
 });
 
@@ -170,3 +193,24 @@ function reset() {
     img3.removeChild(img3.firstChild);
   }
 }
+
+// function handleResults(event){
+//   if(count === rounds){
+//     for(let i = 0; i < productsArr.length; i++){
+//       let li = document.createElement('li');
+//       li.textContent = `${productsArr[i].name} had ${productsArr[i].clicks}, and was seen ${productsArr[i]} times`;
+//       showResults.appendChild(li);
+//     }
+//   }
+// }
+
+showResults.addEventListener('click', function(){
+  // event.preventDefault();
+  if(count === rounds){
+    for(let i = 0; i < productsArr.length; i++){
+      let li = document.createElement('li');
+      li.textContent = `${productsArr[i].name} had ${productsArr[i].clicks} votes, and was seen ${productsArr[i].views} times`;
+      clickResults.appendChild(li);
+    }
+  }
+});
