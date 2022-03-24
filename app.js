@@ -1,14 +1,12 @@
 'use strict';
 
-const results = document.getElementById('results');
-const selection = document.getElementById('selection');
-const button = document.getElementById('addButton');
 const showResults = document.getElementById('item2');
 const clickResults = document.getElementById('print');
-// let imageOne = document.getElementById('imageOne');
-// let imageTwo = document.getElementById('imageTwo');
-// let imageThree = document.getElementById('imageThree');
+let count = 0;
 let rounds = 25;
+let img1 = document.getElementById('hold[0].name');
+let img2 = document.getElementById('hold[1].name');
+let img3 = document.getElementById('hold[2].name');
 
 //Constructor Function
 function Product(name, filePath, views, clicks) {
@@ -17,7 +15,6 @@ function Product(name, filePath, views, clicks) {
   this.views = views;
   this.clicks = clicks;
 }
-console.log(Product);
 
 //Products Array
 let productsArr = [
@@ -41,20 +38,6 @@ let productsArr = [
   new Product('water-can', 'img/water-can.jpg', 0, 0),
   new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
 ];
-console.log(productsArr);
-
-// Product.tableHeader = function () {
-//   let i;
-//   for(i = 0; i < productsArr.length; i++){
-//     let row = document.createElement('tr');
-//     row.id = productsArr[i].name;
-//     results.appendChild(row);
-//     let name = document.createElement('td');
-//     name.textContent = productsArr[i].name;
-//     row.appendChild(name);
-//   }
-// };
-// Product.tableHeader();
 
 //Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
@@ -75,10 +58,6 @@ Product.productDisplay = function () {
 
 let hold = Product.productDisplay();
 
-let img1 = document.getElementById('hold[0].name');
-console.log(img1);
-let img2 = document.getElementById('hold[1].name');
-let img3 = document.getElementById('hold[2].name');
 
 console.log(hold);
 Product.render = function () {
@@ -101,89 +80,45 @@ Product.render = function () {
   prodImg3.id = `${hold[2].name}`;
   img3.appendChild(prodImg3);
 };
-
 Product.render();
 
-let count = 0;
 let userChoice1 = img1;
-
 userChoice1.addEventListener('click', function (event) {
   event.preventDefault();
-
-  // let read = hold;
   hold[0].clicks++;
   count++;
-  // for(let i = 0; i < productsArr.length; i++) {
-  //   if(read[0].name === productsArr[i].name) {
-  //     let update = document.getElementById(`${productsArr[i].name}`);
-  //     let print = document.createElement('td');
-  //     if (update.hasChildNodes()) {
-  //       update.removeChild(update.firstChild);
-  //     }
-  //     print.textContent = read[0].clicks;
-  //     update.appendChild(print);
-  //   }
-  // }
   reset();
   for(let i = 0; i < 1; i++){
     if(count < rounds){
       Product.render();
     }
   }
-  // Product.render();
-  console.log(productsArr);
 });
 
 let userChoice2 = img2;
-
 userChoice2.addEventListener('click', function (event) {
   event.preventDefault();
-
-  // let read = hold;
   hold[1].clicks++;
   count++;
-  // for(let i = 0; i < productsArr.length; i++) {
-  //   if(read[1].name === productsArr[i].name) {
-  //     let update = document.getElementById(`${read[1].name}`);
-  //     let print = document.createElement('td');
-  //     print.textContent = read[1].clicks;
-  //     update.appendChild(print);
-  //   }
-  // }
   reset();
   for(let i = 0; i < 1; i++){
     if(count < rounds){
       Product.render();
     }
   }
-  // Product.render();
-  console.log(productsArr);
 });
 
 let userChoice3 = img3;
-
 userChoice3.addEventListener('click', function (event) {
   event.preventDefault();
-
-  // let read = hold;
   hold[2].clicks++;
   count++;
-  // for(let i = 0; i < productsArr.length; i++) {
-  //   if(read[2].name === productsArr[i].name) {
-  //     let update = document.getElementById(`${read[2].name}`);
-  //     let print = document.createElement('td');
-  //     print.textContent = read[2].clicks;
-  //     update.appendChild(print);
-  //   }
-  // }
   reset();
   for(let i = 0; i < 1; i++){
     if(count < rounds){
       Product.render();
     }
   }
-  // Product.render();
-  console.log(productsArr);
 });
 
 function reset() {
@@ -194,18 +129,8 @@ function reset() {
   }
 }
 
-// function handleResults(event){
-//   if(count === rounds){
-//     for(let i = 0; i < productsArr.length; i++){
-//       let li = document.createElement('li');
-//       li.textContent = `${productsArr[i].name} had ${productsArr[i].clicks}, and was seen ${productsArr[i]} times`;
-//       showResults.appendChild(li);
-//     }
-//   }
-// }
-
-showResults.addEventListener('click', function(){
-  // event.preventDefault();
+showResults.addEventListener('click', function(event){
+  event.preventDefault();
   if(count === rounds){
     for(let i = 0; i < productsArr.length; i++){
       let li = document.createElement('li');
