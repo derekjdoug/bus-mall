@@ -2,8 +2,15 @@
 
 const showResults = document.getElementById('item2');
 const clickResults = document.getElementById('print');
-
+let count = 0;
 let rounds = 25;
+let productLength = 3;
+let img1 = document.getElementById('hold[0].name');
+let img2 = document.getElementById('hold[1].name');
+let img3 = document.getElementById('hold[2].name');
+let productNamesList = [];
+let productVotesList = [];
+let productViewsList = [];
 
 //Constructor Function
 function Product(name, filePath, views, clicks) {
@@ -12,7 +19,6 @@ function Product(name, filePath, views, clicks) {
   this.views = views;
   this.clicks = clicks;
 }
-
 //Products Array
 let productsArr = [
   new Product('bag', 'img/bag.jpg', 0, 0),
@@ -35,8 +41,7 @@ let productsArr = [
   new Product('water-can', 'img/water-can.jpg', 0, 0),
   new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
 ];
-
-//Function that randomly generates 3 images from directory
+// Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
   let threeProducts = [];
   let i;
@@ -52,18 +57,15 @@ Product.productDisplay = function () {
   }
   return threeProducts;
 };
-
 let hold = Product.productDisplay();
-
 //single product
 Product.singleProduct = function () {
   let oneProduct = productsArr[Math.floor(Math.random() * productsArr.length)];
   return oneProduct;
 };
-
 Product.uniqueProductDisplay = function () {
   let uniqueProductsArr = [];
-  while (uniqueProductsArr.length < 3) {
+  while (uniqueProductsArr.length < productLength) {
     let unique = Product.singleProduct();
     while (!uniqueProductsArr.includes(unique)) {
       uniqueProductsArr.push(unique);
@@ -74,7 +76,6 @@ Product.uniqueProductDisplay = function () {
           let product = Product.singleProduct();
           while (!uniqueProductsArr.includes(product))
             uniqueProductsArr.splice([i], 1, product);
-          console.log(uniqueProductsArr);
         }
       }
     }
@@ -85,13 +86,7 @@ Product.uniqueProductDisplay = function () {
   return uniqueProductsArr;
 };
 
-let img1 = document.getElementById('hold[0].name');
-console.log(img1);
-let img2 = document.getElementById('hold[1].name');
-let img3 = document.getElementById('hold[2].name');
-
 Product.render = function () {
-
   hold = Product.uniqueProductDisplay();
 
   let prodImg1 = document.createElement('img');
@@ -110,18 +105,13 @@ Product.render = function () {
   prodImg3.id = `${hold[2].name}`;
   img3.appendChild(prodImg3);
 };
-
 Product.render();
 
-let count = 0;
 let userChoice1 = img1;
-
 userChoice1.addEventListener('click', function (event) {
   event.preventDefault();
-
   hold[0].clicks++;
   count++;
-
   reset();
   for (let i = 0; i < 1; i++) {
     if (count < rounds) {
@@ -132,10 +122,8 @@ userChoice1.addEventListener('click', function (event) {
 });
 
 let userChoice2 = img2;
-
 userChoice2.addEventListener('click', function (event) {
   event.preventDefault();
-
   hold[1].clicks++;
   count++;
 
@@ -149,13 +137,10 @@ userChoice2.addEventListener('click', function (event) {
 });
 
 let userChoice3 = img3;
-
 userChoice3.addEventListener('click', function (event) {
   event.preventDefault();
-
   hold[2].clicks++;
   count++;
-
   reset();
   for (let i = 0; i < 1; i++) {
     if (count < rounds) {
@@ -209,7 +194,28 @@ function chartRender(){
           'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
-      }]
+      },
+      {label: '# of views',
+        data: productViewsList,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      },
+      ]
     },
     options: {
       scales: {
@@ -221,6 +227,7 @@ function chartRender(){
   });
   productNames();
   productVotes();
+  productViews();
 }
 
 function showChart(){
@@ -229,14 +236,20 @@ function showChart(){
   }
 }
 
-let productNamesList = [];
 function productNames(){
-  for(let i = 0; i < productsArr.length; i++)
+  for(let i = 0; i < productsArr.length; i++){
     productNamesList.push(productsArr[i].name);
+  }
 }
 
-let productVotesList = [];
 function productVotes(){
-  for(let i = 0; i < productsArr.length; i++)
+  for(let i = 0; i < productsArr.length; i++){
     productVotesList.push(productsArr[i].clicks);
+  }
+}
+
+function productViews(){
+  for(let i = 0; i < productsArr.length; i++){
+    productViewsList.push(productsArr[i].views);
+  }
 }
