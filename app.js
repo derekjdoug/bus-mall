@@ -19,6 +19,7 @@ function Product(name, filePath, views, clicks) {
   this.views = views;
   this.clicks = clicks;
 }
+
 //Products Array
 let productsArr = [
   new Product('bag', 'img/bag.jpg', 0, 0),
@@ -41,6 +42,7 @@ let productsArr = [
   new Product('water-can', 'img/water-can.jpg', 0, 0),
   new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
 ];
+
 // Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
   let threeProducts = [];
@@ -58,11 +60,14 @@ Product.productDisplay = function () {
   return threeProducts;
 };
 let hold = Product.productDisplay();
+
 //single product
 Product.singleProduct = function () {
   let oneProduct = productsArr[Math.floor(Math.random() * productsArr.length)];
   return oneProduct;
 };
+
+//multiple products
 Product.uniqueProductDisplay = function () {
   let uniqueProductsArr = [];
   while (uniqueProductsArr.length < productLength) {
@@ -177,42 +182,14 @@ function chartRender(){
       datasets: [{
         label: '# of Votes',
         data: productVotesList,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1
       },
       {label: '# of views',
         data: productViewsList,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
       },
       ]
@@ -225,9 +202,7 @@ function chartRender(){
       }
     }
   });
-  productNames();
-  productVotes();
-  productViews();
+  chartData();
 }
 
 function showChart(){
@@ -236,20 +211,11 @@ function showChart(){
   }
 }
 
-function productNames(){
-  for(let i = 0; i < productsArr.length; i++){
+function chartData(){
+  let length = productsArr.length;
+  for(let i = 0; i < length; i++){
     productNamesList.push(productsArr[i].name);
-  }
-}
-
-function productVotes(){
-  for(let i = 0; i < productsArr.length; i++){
     productVotesList.push(productsArr[i].clicks);
-  }
-}
-
-function productViews(){
-  for(let i = 0; i < productsArr.length; i++){
     productViewsList.push(productsArr[i].views);
   }
 }
