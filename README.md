@@ -1,4 +1,4 @@
-# Lab: 12
+# Lab: 13
 
 ## Add a Chart to Your BusMall App
 
@@ -16,5 +16,6 @@ Creating the premiere outlet for public transit shopping.
 
 ### Reflections and Comments
 
-- I know my JavaScript code is likely *significantly* longer than it needs to be. While I understood the logic enough to work through and make all of my functionality work, I need to now take the next step and work to make it more efficient.
-- I also need more work on using event listeners and event handlers. Again, I implemented them enough for functionality, but I know I can use and write them more effectively in the future from lessons learned in this lab.
+- Over-complicated this one insanely today. The (a) answer--although probably not easily scalable in its current iteration--was only about 12 lines of added code.
+- I think I relied too much on the examples and not what made logical sense with the functionality of the tools. It can be difficult when I feel like I'm in a time crunch, but sometimes I believe I need to step back and ask myself "at its most basic, what does this tool do, and how can I use it?".
+- This class has been really good for improving my thought processes. I have a very abstract way of thinking, so patterns and connections are easy for me to make--I often get lost when needed to begin with the small details. Instead of missing the forest for the trees, I miss the trees for the forest. Understanding this and facing it has been good, I think.
