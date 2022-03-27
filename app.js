@@ -11,8 +11,8 @@ let img3 = document.getElementById('hold[2].name');
 let productNamesList = [];
 let productVotesList = [];
 let productViewsList = [];
+let productsArr = [];
 
-//Constructor Function
 function Product(name, filePath, views, clicks) {
   this.name = name;
   this.filePath = filePath;
@@ -20,30 +20,39 @@ function Product(name, filePath, views, clicks) {
   this.clicks = clicks;
 }
 
-//Products Array
-let productsArr = [
-  new Product('bag', 'img/bag.jpg', 0, 0),
-  new Product('banana', 'img/banana.jpg', 0, 0),
-  new Product('bathroom', 'img/bathroom.jpg', 0, 0),
-  new Product('boots', 'img/boots.jpg', 0, 0),
-  new Product('breakfast', 'img/breakfast.jpg', 0, 0),
-  new Product('bubblegum', 'img/bubblegum.jpg', 0, 0),
-  new Product('chair', 'img/chair.jpg', 0, 0),
-  new Product('cthulhu', 'img/cthulhu.jpg', 0, 0),
-  new Product('dog-duck', 'img/dog-duck.jpg', 0, 0),
-  new Product('dragon', 'img/dragon.jpg', 0, 0),
-  new Product('pen', 'img/pen.jpg', 0, 0),
-  new Product('pet-sweep', 'img/pet-sweep.jpg', 0, 0),
-  new Product('scissors', 'img/scissors.jpg', 0, 0),
-  new Product('shark', 'img/shark.jpg', 0, 0),
-  new Product('sweep', 'img/sweep.png', 0, 0),
-  new Product('tauntaun', 'img/tauntaun.jpg', 0, 0),
-  new Product('unicorn', 'img/unicorn.jpg', 0, 0),
-  new Product('water-can', 'img/water-can.jpg', 0, 0),
-  new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
-];
+function generateData () {
+  if(!localStorage.data){
+    productsArr = [
+      new Product('bag', 'img/bag.jpg', 0, 0),
+      new Product('banana', 'img/banana.jpg', 0, 0),
+      new Product('bathroom', 'img/bathroom.jpg', 0, 0),
+      new Product('boots', 'img/boots.jpg', 0, 0),
+      new Product('breakfast', 'img/breakfast.jpg', 0, 0),
+      new Product('bubblegum', 'img/bubblegum.jpg', 0, 0),
+      new Product('chair', 'img/chair.jpg', 0, 0),
+      new Product('cthulhu', 'img/cthulhu.jpg', 0, 0),
+      new Product('dog-duck', 'img/dog-duck.jpg', 0, 0),
+      new Product('dragon', 'img/dragon.jpg', 0, 0),
+      new Product('pen', 'img/pen.jpg', 0, 0),
+      new Product('pet-sweep', 'img/pet-sweep.jpg', 0, 0),
+      new Product('scissors', 'img/scissors.jpg', 0, 0),
+      new Product('shark', 'img/shark.jpg', 0, 0),
+      new Product('sweep', 'img/sweep.png', 0, 0),
+      new Product('tauntaun', 'img/tauntaun.jpg', 0, 0),
+      new Product('unicorn', 'img/unicorn.jpg', 0, 0),
+      new Product('water-can', 'img/water-can.jpg', 0, 0),
+      new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
+    ];
+    let data = JSON.stringify(productsArr);
+    localStorage.setItem('data', data);
+  }
+  else {
+    let store = localStorage.getItem('data');
+    productsArr = JSON.parse(store);
+  }
+}
+generateData();
 
-// Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
   let threeProducts = [];
   let i;
@@ -54,20 +63,17 @@ Product.productDisplay = function () {
     }
     else {
       threeProducts.push(product);
-      product.views++;
     }
   }
   return threeProducts;
 };
 let hold = Product.productDisplay();
 
-//single product
 Product.singleProduct = function () {
   let oneProduct = productsArr[Math.floor(Math.random() * productsArr.length)];
   return oneProduct;
 };
 
-//multiple products
 Product.uniqueProductDisplay = function () {
   let uniqueProductsArr = [];
   while (uniqueProductsArr.length < productLength) {
@@ -117,6 +123,7 @@ userChoice1.addEventListener('click', function (event) {
   event.preventDefault();
   hold[0].clicks++;
   count++;
+  localStorage.setItem('data', JSON.stringify(productsArr));
   reset();
   for (let i = 0; i < 1; i++) {
     if (count < rounds) {
@@ -131,7 +138,7 @@ userChoice2.addEventListener('click', function (event) {
   event.preventDefault();
   hold[1].clicks++;
   count++;
-
+  localStorage.setItem('data', JSON.stringify(productsArr));
   reset();
   for (let i = 0; i < 1; i++) {
     if (count < rounds) {
@@ -146,6 +153,7 @@ userChoice3.addEventListener('click', function (event) {
   event.preventDefault();
   hold[2].clicks++;
   count++;
+  localStorage.setItem('data', JSON.stringify(productsArr));
   reset();
   for (let i = 0; i < 1; i++) {
     if (count < rounds) {
@@ -164,13 +172,8 @@ function reset() {
 }
 
 showResults.addEventListener('click', function () {
-  if (count === rounds) {
-    for (let i = 0; i < productsArr.length; i++) {
-      let li = document.createElement('li');
-      li.textContent = `${productsArr[i].name} had ${productsArr[i].clicks} votes, and was seen ${productsArr[i].views} times`;
-      clickResults.appendChild(li);
-    }
-  }
+  localStorage.clear();
+  alert('Results cleared! Refresh and start over.');
 });
 
 function chartRender(){
