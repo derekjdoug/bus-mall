@@ -18,30 +18,33 @@ function Product(name, filePath, views, clicks) {
   this.filePath = filePath;
   this.views = views;
   this.clicks = clicks;
+
+  //newly added to ensure that new products are added to the productsArr
+  productsArr.push(this);
 }
 
 //Products Array
-let productsArr = [
-  new Product('bag', 'img/bag.jpg', 0, 0),
-  new Product('banana', 'img/banana.jpg', 0, 0),
-  new Product('bathroom', 'img/bathroom.jpg', 0, 0),
-  new Product('boots', 'img/boots.jpg', 0, 0),
-  new Product('breakfast', 'img/breakfast.jpg', 0, 0),
-  new Product('bubblegum', 'img/bubblegum.jpg', 0, 0),
-  new Product('chair', 'img/chair.jpg', 0, 0),
-  new Product('cthulhu', 'img/cthulhu.jpg', 0, 0),
-  new Product('dog-duck', 'img/dog-duck.jpg', 0, 0),
-  new Product('dragon', 'img/dragon.jpg', 0, 0),
-  new Product('pen', 'img/pen.jpg', 0, 0),
-  new Product('pet-sweep', 'img/pet-sweep.jpg', 0, 0),
-  new Product('scissors', 'img/scissors.jpg', 0, 0),
-  new Product('shark', 'img/shark.jpg', 0, 0),
-  new Product('sweep', 'img/sweep.png', 0, 0),
-  new Product('tauntaun', 'img/tauntaun.jpg', 0, 0),
-  new Product('unicorn', 'img/unicorn.jpg', 0, 0),
-  new Product('water-can', 'img/water-can.jpg', 0, 0),
-  new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
-];
+let productsArr = [];
+
+new Product('bag', 'img/bag.jpg', 0, 0),
+new Product('banana', 'img/banana.jpg', 0, 0),
+new Product('bathroom', 'img/bathroom.jpg', 0, 0),
+new Product('boots', 'img/boots.jpg', 0, 0),
+new Product('breakfast', 'img/breakfast.jpg', 0, 0),
+new Product('bubblegum', 'img/bubblegum.jpg', 0, 0),
+new Product('chair', 'img/chair.jpg', 0, 0),
+new Product('cthulhu', 'img/cthulhu.jpg', 0, 0),
+new Product('dog-duck', 'img/dog-duck.jpg', 0, 0),
+new Product('dragon', 'img/dragon.jpg', 0, 0),
+new Product('pen', 'img/pen.jpg', 0, 0),
+new Product('pet-sweep', 'img/pet-sweep.jpg', 0, 0),
+new Product('scissors', 'img/scissors.jpg', 0, 0),
+new Product('shark', 'img/shark.jpg', 0, 0),
+new Product('sweep', 'img/sweep.png', 0, 0),
+new Product('tauntaun', 'img/tauntaun.jpg', 0, 0),
+new Product('unicorn', 'img/unicorn.jpg', 0, 0),
+new Product('water-can', 'img/water-can.jpg', 0, 0),
+new Product('wine-glass', 'img/wine-glass.jpg', 0, 0)
 
 // Function that randomly generates 3 images from directory
 Product.productDisplay = function () {
@@ -54,7 +57,7 @@ Product.productDisplay = function () {
     }
     else {
       threeProducts.push(product);
-      product.views++;
+      // product.views++;
     }
   }
   return threeProducts;
@@ -88,6 +91,11 @@ Product.uniqueProductDisplay = function () {
   for (let k = 0; k < uniqueProductsArr.length; k++) {
     uniqueProductsArr[k].views++;
   }
+  createOrUpdateViews();
+  getVotes();
+  getViews();
+  // console.log('views:' + localStorage.views);
+  // updateViews();
   return uniqueProductsArr;
 };
 
@@ -116,6 +124,9 @@ let userChoice1 = img1;
 userChoice1.addEventListener('click', function (event) {
   event.preventDefault();
   hold[0].clicks++;
+  // getVotes();
+  createOrUpdateVotes();
+  // console.log('votes:' + localStorage.votes);
   count++;
   reset();
   for (let i = 0; i < 1; i++) {
@@ -130,6 +141,9 @@ let userChoice2 = img2;
 userChoice2.addEventListener('click', function (event) {
   event.preventDefault();
   hold[1].clicks++;
+  // getVotes();
+  createOrUpdateVotes();
+  // console.log('votes:' + localStorage.votes);
   count++;
 
   reset();
@@ -145,6 +159,9 @@ let userChoice3 = img3;
 userChoice3.addEventListener('click', function (event) {
   event.preventDefault();
   hold[2].clicks++;
+  // getVotes();
+  createOrUpdateVotes();
+  // console.log('votes:' + localStorage.votes);
   count++;
   reset();
   for (let i = 0; i < 1; i++) {
@@ -213,9 +230,83 @@ function showChart(){
 
 function chartData(){
   let length = productsArr.length;
+  let views = viewData();
+  let votes = voteData();
+
   for(let i = 0; i < length; i++){
     productNamesList.push(productsArr[i].name);
-    productVotesList.push(productsArr[i].clicks);
-    productViewsList.push(productsArr[i].views);
+    productVotesList.push(votes[i].clicks);
+    productViewsList.push(views[i].views);
   }
 }
+
+function getVotes () {
+  let votes;
+  if(votes !== null){
+    localStorage.getItem('votes');
+  }
+  return votes;
+}
+
+function getViews () {
+  let views;
+  if(views !== null){
+    localStorage.getItem('views');
+  }
+  return views;
+}
+
+function createOrUpdateVotes () {
+  let ostrich = getVotes();
+  if(localStorage.votes){
+    localStorage.getItem('votes');
+    let newViews = JSON.stringify(ostrich);
+    localStorage.setItem('votes', newViews);
+  }
+  else{
+    let products = JSON.stringify(productsArr);
+    localStorage.setItem('votes', products);
+    const votes = localStorage.getItem('votes');
+    return votes;
+  }
+}
+
+function voteData () {
+  getVotes();
+  let votes = localStorage.getItem('votes');
+  const data = JSON.parse(votes);
+  console.log(data);
+  return data;
+}
+
+function createOrUpdateViews () {
+  let koala = getViews();
+  if(localStorage.views){
+    localStorage.getItem('views');
+    let newViews = JSON.stringify(koala);
+    localStorage.setItem('views', newViews);
+  }
+  else{
+    let products = JSON.stringify(productsArr);
+    localStorage.setItem('views', products);
+    const views = localStorage.getItem('views');
+    return views;
+  }
+}
+
+function viewData () {
+  let views = localStorage.getItem('views');
+  const data = JSON.parse(views);
+  console.log(data);
+  return data;
+}
+
+// let newArr = [];
+// function newArray () {
+//   if(localStorage.views){
+//     newArr.push(productsArr);
+//   }
+//   else{
+//     newArr = productsArr;
+//   }
+// }
