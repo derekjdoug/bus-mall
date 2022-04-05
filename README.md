@@ -1,8 +1,8 @@
-# Lab: 13
+# Lab: 15b
 
-## Add a Chart to Your BusMall App
+## Finish with the BusMall App
 
-Creating the premiere outlet for public transit shopping.
+Creating the premiere outlet for public transit shopping. This page acts as a survey for customers to pick their favorite products out of randomly generated groups of threes.
 
 ### Author: Derek Douglas, Zayah Lang, and Luis Sandoval
 
@@ -13,9 +13,10 @@ Creating the premiere outlet for public transit shopping.
 - [W3Schools](https://www.w3schools.com/css/css_grid.asp)
 - [Chartjs.org](https://www.chartjs.org/)
 - [JSDELIVR](https://www.jsdelivr.com/package/npm/chart.js)
+- *JAVASCRIPT&JQUERY* by Jon Duckett
 
 ### Reflections and Comments
 
-- Over-complicated this one insanely today. The (a) answer--although probably not easily scalable in its current iteration--was only about 12 lines of added code.
-- I think I relied too much on the examples and not what made logical sense with the functionality of the tools. It can be difficult when I feel like I'm in a time crunch, but sometimes I believe I need to step back and ask myself "at its most basic, what does this tool do, and how can I use it?".
-- This class has been really good for improving my thought processes. I have a very abstract way of thinking, so patterns and connections are easy for me to make--I often get lost when needed to begin with the small details. Instead of missing the forest for the trees, I miss the trees for the forest. Understanding this and facing it has been good, I think.
+- Overall BusMall was a great experience that I ultimately want to revisit and parse through again. Working with local storage proved to be a challenge that I'm beginning to understand, but don't have fully formed in my mind yet.
+- This project has spurred me to look deeper in Constructor functions (and their prototypes...appropriate time to use, etc.) and event listeners. I feel like I'm slowly progressing on both of them but I want to really get them down.
+- Don't forget things you have already learned for the sake of implementing new ideas!
